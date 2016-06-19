@@ -42,7 +42,7 @@ The background picture, the explosion animation and bullet sprites are files bel
 
 The music theme is one of 1990 NES's Silver Surfer stage themes composed by Tim and Geoff Follin.
 
-The cannon fire and explosion sound effects are from 1998 Starcraft game.
+The cannon fire and explosion sound effects are from 1998 Blizzard's Starcraft.
 
 ##Documentation
 
