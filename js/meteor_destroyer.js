@@ -69,8 +69,6 @@ function update() {
 	game.physics.arcade.collide(player, platforms);	
 	game.physics.arcade.overlap(bullets, meteors, destroy_meteor, null, this);
 	game.physics.arcade.overlap(meteors, platforms, hit_floor, null, this);
-	
-		//console.log('Mouse y is :' + this.input.activePointer.withinGame);
 		
 	if (game.physics.arcade.angleToPointer(player) > 0 && game.physics.arcade.angleToPointer(player) < 180)
 	{
@@ -91,12 +89,9 @@ function create_meteors()
 	var nmeteors = 3 + Math.floor((Math.random() * 4) + 1);
 	    for (var i = 0; i < nmeteors; i++)
     {
-        //  Create a star inside of the 'stars' group
         var meteor = meteors.create(i * 120  + Math.floor((Math.random() * 50) + 1) , -50, 'meteor');
 
-        //  Let gravity do its thing
-        meteor.body.gravity.y = Math.floor((Math.random() * curve) + 1); 
-		
+        meteor.body.gravity.y = Math.floor((Math.random() * curve) + 1); 	
     }
 	if (curve < 90)
 	curve += 5;
