@@ -9,7 +9,8 @@ How many meteors will you blow up before they can hit and destroy your base? How
 ## Instructions
 1. Click anywhere in the start screen to start the game
 2. Wait it for load (it needs some seconds to load the music theme in some browsers).
-3. Aim at any point of the screen with your mouse over the turret and click to fire the bullets to the falling meteors.
+3. Aim at any point of the screen with your mouse over the turret and click to fire the bullets to the falling meteors. If you are playing the game from a mobile
+device, just click with your finger tip at any point of the screen over the turret to fire.
 4. Destroy all the falling meteors until you lose all your "lives" or HP. If you want to restart the game, just click anywhere in the screen.
 
 
