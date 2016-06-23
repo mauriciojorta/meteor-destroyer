@@ -2,7 +2,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
     //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+     game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
     game.scale.updateLayout();
  game.load.image('deep-space', 'assets/deep-space.jpg');
   game.load.image('floor', 'assets/platform.png');
