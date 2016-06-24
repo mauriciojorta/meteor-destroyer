@@ -2,7 +2,10 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create
 
 function preload() {
     //  Then we tell Phaser that we want it to scale up to whatever the browser can handle, but to do it proportionally
+	if(!game.device.desktop) 
      game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+ else
+	 game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.updateLayout();
  game.load.image('deep-space', 'assets/deep-space.jpg');
   game.load.image('floor', 'assets/platform.png');
@@ -268,13 +271,13 @@ function start_screen()
 {
 	logo = game.add.sprite(0, 0, 'logo');
     logo.fixedToCamera = true;
-    game.input.onTap.add(start_game, this);
+    game.input.onDown.add(start_game, this);
 	
 }
 
 function start_game()
 {
-	game.input.onTap.remove(start_game, this);
+	game.input.onDown.remove(start_game, this);
     logo.kill();
 		loadText = game.add.text(32, 32, 'Loading', { fill: '#ffffff' });
 		game.load.onLoadComplete.add(loadComplete, this);
