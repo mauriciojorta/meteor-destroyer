@@ -1,0 +1,44 @@
+#form
+{ position: absolute; width: 290px; height: 90px;  padding: 5px; left: 50%; top: 50%; background: #FFF; margin: auto;}
+
+.autoinput
+{
+	width: 100%
+	box-sizing:border-box;
+	
+}
+.boxsombra 
+{
+  position: relative;
+  background: #e6e3f0;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 20px;
+  color: rgba(0,0,0, .8);
+  text-shadow: 0 1px 0 #fff;
+  line-height: 1.5;
+  margin: 0 auto;
+}
+.closebutton
+{
+	text-align: right;
+}
+
+.closebutton2
+{
+	text-align: right;
+}
+
+.scrollbox
+{
+	position: absolute; width: 50%; height: 40%; padding: 5px; left: 20%; top: 35%; border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif; overflow:auto; background: #e6e3f0;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 20px;
+  color: rgba(0,0,0, .8);
+  text-shadow: 0 1px 0 #fff;
+  line-height: 1.5;
+  margin: auto;
+}
+
+ /*rgb(0, 0, 0) transparent;;*/

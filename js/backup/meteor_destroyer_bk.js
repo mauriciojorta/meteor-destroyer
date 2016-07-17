@@ -37,19 +37,7 @@ var gameover;
 var curve = 5;
 var buyhp;
 var highscore = 0;
-var userID;
-var sentScore;
-//localStorage.clear();
-console.log('sentScore:' + localStorage.sentScore);
-if (localStorage.sentScore != null)
-{
-	sentScore = localStorage.sentScore;
-}
-else
-{
-	localStorage.sentScore = false;
-	sentScore = localStorage.sentScore;
-}
+var userId;
 if (localStorage.userID != null)
 {
 userID = localStorage.userID;
@@ -78,10 +66,6 @@ var scoreText;
 
 var stateText;
 var loadText;
-var sendText;
-var bestscoresText;
-var taptoplayText;
-var scoreWindow;
 var allSet = false;
 
 var paused = false;
@@ -235,8 +219,6 @@ function run_game()
    stateText = game.add.text(game.world.centerX,game.world.centerY,' ', { font: '64px Arial', fill: '#fff' });
   stateText.anchor.setTo(0.5, 0.5);
   stateText.visible = false;
-  	sendText = game.add.text(3, game.world.height - 44, 'Click here to send score!', { fontSize: '32px', fill: '#ff0000' });
-	sendText.visible = false;
   allSet = true;
   create_meteors();
   timer = game.time.create(false);
@@ -258,30 +240,22 @@ function game_over()
 		curve = 5;
 		set_highscore();
     if (newhighscore == false)
-        stateText.text= " GAME OVER \n Highscore: " + highscore + "\n Click here to restart";
+        stateText.text= " GAME OVER \n Highscore: " + highscore + "\n Click to restart";
 	else
-		 stateText.text=" GAME OVER \n New highscore!: " + highscore + "\n Click here to restart";
+		 stateText.text=" GAME OVER \n New highscore!: " + highscore + "\n Click to restart";
         stateText.visible = true;
-		stateText.inputEnabled = true;
-		stateText.events.onInputUp.add(function () {
-			  stateText.inputEnabled = false;
-			  sendText.inputEnabled = false;
-      run_game();
-    });
-	if (sentScore == "false" || (sentScore == "true" && newhighscore == true))
-	{
-		console.log("Paso por aquí");
-		sendText.visible = true;
-		sendText.inputEnabled = true;
-		sendText.events.onInputUp.add(function () {
-				  sendText.inputEnabled = false;
-			create_input();
-      
-    });
-	}
-
+		var name = 'Mauricio';
+		if (localStorage.userID == '')
+		{
+          ref.push({name: name, score: highscore});
+		  		 ref.on('child_added', function(snapshot) {
+					 localStorage.userID = snapshot.key();
+					 userID = localStorage.userID;
+         
+      });
+		}
         //the "click to restart" handler
-        //game.input.onTap.addOnce(run_game,this);
+        game.input.onTap.addOnce(run_game,this);
 	
 }
 
@@ -319,29 +293,12 @@ function start_screen()
 {
 	logo = game.add.sprite(0, 0, 'logo');
     logo.fixedToCamera = true;
-	bestscoresText = game.add.text(280,400,'Global highscores', { font: '32px Arial', fill: '#fff' });
-	taptoplayText = game.add.text(game.world.centerX-145,game.world.centerY + 10,'TAP PLAY', { font: '64px Arial', fill: '#fff' });
-	taptoplayText.alpha = 0;
-	taptoplayText.inputEnabled = true;
-	bestscoresText.inputEnabled = true;
-	bestscoresText.events.onInputUp.add(function () {
-				  bestscoresText.inputEnabled = false;
-			showHighscores();
-      
-    });
-		taptoplayText.events.onInputUp.add(function () {
-				  taptoplayText.inputEnabled = false;
-			start_game();
-      
-    });
-    //game.input.onDown.add(start_game, this);
+    game.input.onDown.add(start_game, this);
 	
 }
 
 function start_game()
 {
-	game.world.remove(taptoplayText);
-	game.world.remove(bestscoresText);
 	game.input.onDown.remove(start_game, this);
     logo.kill();
 		loadText = game.add.text(32, 32, 'Loading', { fill: '#ffffff' });
@@ -349,77 +306,11 @@ function start_game()
 	  game.sound.setDecodedCallback("theme", run_game, this);
 }
 
-function create_input()
-{
-	    $("#holder").fadeIn(800).prepend('<div  id = "form" class = "boxsombra"><div class = "closebutton"><b>X</b></div><form name="miformulario" action="" onsubmit="send_score()"><br/><b>Name</b>: <input type="text" id="nameinput" name="player_name"/><input type="submit" value="Send" class="btn btn-primary"></form></div>'); //add input box
-			$(".closebutton").click(function(){
-		sendText.inputEnabled = true;
-		$("#holder #form").fadeOut(800).remove();
-	});
-}
-
-function send_score()
-{
-  $("#holder").fadeOut(800).remove('#form');
-	var name = document.forms["miformulario"]["player_name"].value;;
-		console.log("Name: " + name);
-;		if (localStorage.userID == '')
-		{
-          ref.push({name: name, score: -highscore});
-		  		 ref.on('child_added', function(snapshot) {
-					 localStorage.userID = snapshot.key();
-					 userID = localStorage.userID;
-					 localStorage.sentScore = true;
-					 sentScore = localStorage.sentScore;
-         
-      });
-		}
-		else
-		{
-			ref.child(userID).set({name: name, score : -highscore});
-			localStorage.sentScore = true;
-					 sentScore = localStorage.sentScore;
-		}
- 
-		
-	
-}
 
 function loadComplete() {
 
 	game.world.remove(loadText);
 
-}
-
-function showHighscores()
-{
-	var highscores = "";
-	var i = 1;
-	var etc = false;
-	var scoreRef = ref.orderByChild("score").limitToLast(20);
-	$("#holder").fadeIn(800).prepend('<div class = "scrollbox" ><div class = "closebutton"><b>X</b></div></div>');
-	scoreRef.on("child_added", function(snapshot) {
-		highscores = i + ". " + snapshot.val().name + ": " + -snapshot.val().score + " \n";
-		console.log(i + ". " + snapshot.val().name + ": " + -snapshot.val().score);
-			console.log(highscores);
-			if (snapshot.key() == userID)
-  			$("<p>").text(highscores + "(your score)").css("font-weight","Bold").appendTo('.scrollbox');
-		    else if (i <= 50 && etc == false)
-				$("<p>").text(highscores).appendTo('.scrollbox');
-		i++;
-		if (i > 50 && etc == false)
-		{
-			etc = true;
-			$("<p>").text("...").appendTo('.scrollbox');		
-		}
-    });
-	console.log(highscores);
-	$(".closebutton").click(function(){
-		bestscoresText.inputEnabled = true;
-		$("#holder .scrollbox").fadeOut(800).remove();
-	});
-	
-	
 }
 
 
