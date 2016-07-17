@@ -365,14 +365,13 @@ function send_score()
 		console.log("Name: " + name);
 ;		if (localStorage.userID == '')
 		{
-          ref.push({name: name, score: -highscore});
-		  		 ref.on('child_added', function(snapshot) {
-					 localStorage.userID = snapshot.key();
+          var newplayer = ref.push({name: name, score: -highscore});
+		  console.log("newplayer" + newplayer);
+					 localStorage.userID = newplayer.key();
 					 userID = localStorage.userID;
 					 localStorage.sentScore = true;
 					 sentScore = localStorage.sentScore;
          
-      });
 		}
 		else
 		{
