@@ -21,6 +21,10 @@ device, just click with your finger tip at any point of the screen over the turr
 - To pause the game just move your pointer (mouse pointer or finger tip in a mobile device) out of the game canvas. To unpause, you only have to return the 
 pointer within the game canvas and click.
 
+## New experimental features
+
+- Online highscores table in the start menu. Players can send their highscores (if they didn't do it before) to the online database after a game.
+
 ## Screenshots
 
 ![startscreen](startscreen.png)
